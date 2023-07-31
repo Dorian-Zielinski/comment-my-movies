@@ -1,0 +1,8 @@
+<form>
+  <input type="text" placeholder="Select a movie" #search>
+  <button type="button" (click)="searchMovie(search.value)">Search</button>
+</form>
+
+<ul *ngFor="let movie of movies">
+  <li>{{movie.id}} : {{movie.title}} - {{movie.original_language}}</li>
+</ul>
