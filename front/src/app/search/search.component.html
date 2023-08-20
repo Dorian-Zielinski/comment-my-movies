@@ -1,6 +1,7 @@
-<form>
-  <input type="text" placeholder="Select a movie" #search>
-  <button type="button" (click)="searchMovie(search.value)">Search</button>
+
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <input id="movieName" type="text" formControlName="movieName" aria-label="Movie name">
+  <button class="button" type="submit">Search</button>
 </form>
 
 <ul *ngFor="let movie of movies">
