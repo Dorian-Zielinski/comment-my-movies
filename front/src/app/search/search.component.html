@@ -1,9 +1,12 @@
-
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-  <input id="movieName" type="text" formControlName="movieName" aria-label="Movie name">
-  <button class="button" type="submit">Search</button>
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="row g-3">
+  <div class="col-auto">
+    <input id="movieName" type="text" formControlName="movieName" class="form-control" placeholder="Enter the movie name" aria-label="Movie name">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3">Search</button>
+  </div>
 </form>
 
-<ul *ngFor="let movie of movies">
-  <li>{{movie.id}} : {{movie.title}} - {{movie.original_language}}</li>
+<ul class="list-group list-group-flush">
+  <li *ngFor="let movie of movies" class="list-group-item">{{movie.id}} : {{movie.title}} - {{movie.original_language}}</li>
 </ul>
