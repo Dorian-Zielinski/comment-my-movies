@@ -1,8 +1,8 @@
 package com.dorian.commentmymovies.repositories;
 
-import com.dorian.commentmymovies.model.Movie;
 import com.dorian.commentmymovies.model.MovieSearchResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +16,13 @@ import java.net.http.HttpResponse;
 @Service
 public class MovieRepository {
 
+    @Autowired
+    private HttpClient httpClient;
+
     @Value("${movieDB.token}")
     private String token;
 
-    public Movie[] getMovies(String movieName) throws IOException, InterruptedException, URISyntaxException {
+    public MovieSearchResponse getMovies(String movieName) throws IOException, InterruptedException, URISyntaxException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI("https://api.themoviedb.org/3/search/movie?query=" + movieName))
                 .GET()
@@ -27,12 +30,9 @@ public class MovieRepository {
                 .header("Authorization", "Bearer " + token)
                 .build();
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
         ObjectMapper objectMapper = new ObjectMapper();
-        MovieSearchResponse movieSearchResponse = objectMapper.readValue(response.body(), MovieSearchResponse.class);
-
-        return movieSearchResponse.results();
+        return objectMapper.readValue(response.body(), MovieSearchResponse.class);
     }
 }

@@ -1,6 +1,7 @@
 package com.dorian.commentmymovies.service;
 
 import com.dorian.commentmymovies.model.Movie;
+import com.dorian.commentmymovies.model.MovieSearchResponse;
 import com.dorian.commentmymovies.repositories.MovieRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class MovieService {
     }
 
     public Movie[] getMovies(String movieName) throws IOException, URISyntaxException, InterruptedException {
-        return movieRepository.getMovies(movieName);
+        MovieSearchResponse movies = movieRepository.getMovies(movieName);
+        return movies.results();
     }
 }
