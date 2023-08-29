@@ -8,7 +8,7 @@ import {catchError, Observable, throwError} from "rxjs";
 })
 export class MovieSearchService {
 
-  http: HttpClient = inject(HttpClient)
+  constructor(private http: HttpClient) {}
 
   searchMovies(query: string): Observable<Movie[]> {
     return this.http.get<Movie[]>('http://localhost:8080/movie/search?query=' + query)
