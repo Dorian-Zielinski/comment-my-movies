@@ -21,7 +21,7 @@ export class SearchComponent {
     movieName:''
   })
 
-  movies: Movie[] = [];
+  movies: Movie[] | undefined = [];
 
   onSubmit(): void {
     let form = this.searchForm.value;
